@@ -10,41 +10,6 @@ const romanticQuotes = [
   "You complete me.",
 ];
 
-// function Controls({ selectedVariant, onChangeVariant, onReplay }) {
-//   return (
-//     <div className="proposal-controls">
-//       <div className="proposal-controls__variants">
-//         <button
-//           type="button"
-//           className={
-//             'proposal-button' +
-//             (selectedVariant === 'soft' ? ' proposal-button--active' : '')
-//           }
-//           onClick={() => onChangeVariant('soft')}
-//         >
-//           Soft Romantic
-//         </button>
-//         <button
-//           type="button"
-//           className={
-//             'proposal-button' +
-//             (selectedVariant === 'anime' ? ' proposal-button--active' : '')
-//           }
-//           onClick={() => onChangeVariant('anime')}
-//         >
-//           Dynamic Anime
-//         </button>
-//       </div>
-//       <button
-//         type="button"
-//         className="proposal-button proposal-button--ghost"
-//         onClick={onReplay}
-//       >
-//         Replay Scene
-//       </button>
-//     </div>
-//   );
-// }
 
 function QuoteSequence({ quotes, onComplete }) {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
@@ -71,16 +36,14 @@ function QuoteSequence({ quotes, onComplete }) {
         clearInterval(typingInterval);
         
         // Wait a bit after typing completes, then move to next quote
-        const waitTimer = setTimeout(() => {
+        setTimeout(() => {
           setDisplayedText('');
           setTimeout(() => {
             setCurrentQuoteIndex((prev) => prev + 1);
           }, 300);
         }, 2000); // Show complete quote for 2 seconds
-
-        return () => clearTimeout(waitTimer);
       }
-    }, 50); // Speed of typing (20ms per character - much faster)
+    }, 50); // Speed of typing (50ms per character)
 
     return () => {
       clearInterval(typingInterval);
@@ -159,8 +122,8 @@ function StartButton({ onStart }) {
 
 function App() {
   const [hasStarted, setHasStarted] = useState(false);
-  const [selectedVariant, setSelectedVariant] = useState('soft');
-  const [playId, setPlayId] = useState(0);
+  const [selectedVariant] = useState('soft');
+  const [playId] = useState(0);
   const [showQuotes, setShowQuotes] = useState(true);
   const [showAnimation, setShowAnimation] = useState(false);
   const [showProposal, setShowProposal] = useState(false);
@@ -174,22 +137,6 @@ function App() {
       setShowProposal(true);
     }, animationDuration + 500);
   };
-
-  // const handleChangeVariant = (variant) => {
-  //   setSelectedVariant(variant);
-  //   resetSequence();
-  // };
-
-  // const handleReplay = () => {
-  //   resetSequence();
-  // };
-
-  // const resetSequence = () => {
-  //   setShowQuotes(true);
-  //   setShowAnimation(false);
-  //   setShowProposal(false);
-  //   setPlayId((prev) => prev + 1);
-  // };
 
   return (
     <div className="App">
@@ -210,12 +157,6 @@ function App() {
         ) : (
           <div className="aurora-content">
             <div className="proposal-app">
-            
-              {/* <Controls
-                selectedVariant={selectedVariant}
-                onChangeVariant={handleChangeVariant}
-                onReplay={handleReplay}
-              /> */}
               {showQuotes && (
                 <QuoteSequence
                   quotes={romanticQuotes}
