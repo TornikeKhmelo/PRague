@@ -51,6 +51,8 @@
   pointer-events: none;
   z-index: 1;
   overflow: hidden;
+  contain: layout style paint;
+  will-change: contents;
 }
 
 .snowflake {
@@ -62,15 +64,18 @@
   border-radius: 50%;
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
   animation: snowfall linear infinite;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 @keyframes snowfall {
   0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
     opacity: 1;
   }
   100% {
-    transform: translateY(100vh) translateX(20px) rotate(360deg);
+    transform: translate3d(20px, 100vh, 0) rotate(360deg);
     opacity: 0;
   }
 }
@@ -429,11 +434,13 @@
   position: absolute;
   left: 50%;
   bottom: 18%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateZ(0);
   display: flex;
   align-items: flex-end;
   justify-content: center;
   pointer-events: none;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .proposal-couple-image {
@@ -441,6 +448,9 @@
   max-width: 70%;
   filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.7));
   transform-origin: center bottom;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Animation: Boy walks to girl and kneels */
@@ -450,20 +460,20 @@
 
 @keyframes couple-walk-and-kneel {
   0% {
-    transform: translateX(-150%);
+    transform: translate3d(-150%, 0, 0);
     opacity: 0;
   }
   15% {
     opacity: 1;
   }
   60% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
   75% {
-    transform: translateX(-50%) translateY(8px) scale(0.95);
+    transform: translate3d(-50%, 8px, 0) scale(0.95);
   }
   100% {
-    transform: translateX(-50%) translateY(12px) scale(0.92);
+    transform: translate3d(-50%, 12px, 0) scale(0.92);
   }
 }
 
@@ -474,20 +484,20 @@
 
 @keyframes couple-walk-and-kneel-soft {
   0% {
-    transform: translateX(-150%);
+    transform: translate3d(-150%, 0, 0);
     opacity: 0;
   }
   20% {
     opacity: 1;
   }
   65% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
   80% {
-    transform: translateX(-50%) translateY(6px) scale(0.96);
+    transform: translate3d(-50%, 6px, 0) scale(0.96);
   }
   100% {
-    transform: translateX(-50%) translateY(10px) scale(0.94);
+    transform: translate3d(-50%, 10px, 0) scale(0.94);
   }
 }
 
@@ -498,23 +508,23 @@
 
 @keyframes couple-walk-and-kneel-anime {
   0% {
-    transform: translateX(-180%) rotate(-5deg);
+    transform: translate3d(-180%, 0, 0) rotate(-5deg);
     opacity: 0;
   }
   12% {
     opacity: 1;
   }
   50% {
-    transform: translateX(-50%) rotate(0deg);
+    transform: translate3d(-50%, 0, 0) rotate(0deg);
   }
   65% {
-    transform: translateX(-50%) translateY(-4px) scale(1.02) rotate(2deg);
+    transform: translate3d(-50%, -4px, 0) scale(1.02) rotate(2deg);
   }
   80% {
-    transform: translateX(-50%) translateY(8px) scale(0.93) rotate(-3deg);
+    transform: translate3d(-50%, 8px, 0) scale(0.93) rotate(-3deg);
   }
   100% {
-    transform: translateX(-50%) translateY(14px) scale(0.9) rotate(-5deg);
+    transform: translate3d(-50%, 14px, 0) scale(0.9) rotate(-5deg);
   }
 }
 
@@ -532,14 +542,17 @@
   text-shadow: 0 0 10px rgba(255, 105, 180, 0.8),
     0 0 18px rgba(255, 255, 255, 0.9);
   font-size: 14px;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .proposal-caption {
   position: absolute;
   left: 50%;
   bottom: 74% !important;
-  width: 240px;
-  transform: translateX(-50%);
+  width: 270px;
+  transform: translate3d(-50%, 0, 0);
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -552,6 +565,8 @@
   box-shadow: 0 0 16px rgba(255, 182, 193, 0.7),
     0 0 26px rgba(255, 255, 255, 0.4);
   opacity: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 .proposal-caption--final {
@@ -563,15 +578,15 @@
 @keyframes proposal-final-appear {
   0% {
     opacity: 0;
-    transform: translate(-50%, 30px) scale(0.8);
+    transform: translate3d(-50%, 30px, 0) scale(0.8);
   }
   60% {
     opacity: 1;
-    transform: translate(-50%, -8px) scale(1.1);
+    transform: translate3d(-50%, -8px, 0) scale(1.1);
   }
   100% {
     opacity: 1;
-    transform: translate(-50%, 0) scale(1);
+    transform: translate3d(-50%, 0, 0) scale(1);
   }
 }
 
@@ -584,20 +599,23 @@
 .proposal-caption__ring {
   font-size: 20px;
   animation: ring-sparkle 2.4s ease-in-out infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 @keyframes ring-sparkle {
   0% {
-    transform: translateY(0) rotate(0deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
   30% {
-    transform: translateY(-2px) rotate(-10deg) scale(1.1);
+    transform: translate3d(0, -2px, 0) rotate(-10deg) scale(1.1);
   }
   60% {
-    transform: translateY(1px) rotate(8deg) scale(1.05);
+    transform: translate3d(0, 1px, 0) rotate(8deg) scale(1.05);
   }
   100% {
-    transform: translateY(0) rotate(0deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
 }
 
@@ -621,15 +639,15 @@
 @keyframes proposal-appear {
   0% {
     opacity: 0;
-    transform: translate(-50%, 18px) scale(0.8);
+    transform: translate3d(-50%, 18px, 0) scale(0.8);
   }
   55% {
     opacity: 1;
-    transform: translate(-50%, -4px) scale(1.07);
+    transform: translate3d(-50%, -4px, 0) scale(1.07);
   }
   100% {
     opacity: 1;
-    transform: translate(-50%, 0) scale(1);
+    transform: translate3d(-50%, 0, 0) scale(1);
   }
 }
 
@@ -649,17 +667,17 @@
 
 @keyframes heart-float {
   0% {
-    transform: translate(0, 0) scale(0.8);
+    transform: translate3d(0, 0, 0) scale(0.8);
     opacity: 0;
   }
   20% {
     opacity: 1;
   }
   50% {
-    transform: translate(-2px, -10px) scale(1.05);
+    transform: translate3d(-2px, -10px, 0) scale(1.05);
   }
   100% {
-    transform: translate(2px, -18px) scale(0.9);
+    transform: translate3d(2px, -18px, 0) scale(0.9);
     opacity: 0;
   }
 }
@@ -716,12 +734,48 @@
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile optimizations */
+@media (max-width: 768px) {
   .proposal-app {
     padding: 12px 12px 16px;
   }
 
   .proposal-caption__text {
     font-size: 12px;
+  }
+  
+  /* Reduce shadows and filters on mobile for better performance */
+  .proposal-couple-image {
+    filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.6));
+  }
+  
+  .snowflake {
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+  }
+  
+  .proposal-caption {
+    box-shadow: 0 0 12px rgba(255, 182, 193, 0.5),
+      0 0 20px rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Simplify animations on mobile */
+  .proposal-scene--soft.animate-sequence .proposal-couple-wrapper {
+    animation: couple-walk-and-kneel-soft 1.2s ease-in-out forwards;
+  }
+  
+  .proposal-scene--anime.animate-sequence .proposal-couple-wrapper {
+    animation: couple-walk-and-kneel-anime 0.9s cubic-bezier(0.22, 0.7, 0.3, 1.4) forwards;
+  }
+}
+
+@media (max-width: 480px) {
+  .proposal-caption {
+    width: 90%;
+    max-width: 240px;
+  }
+  
+  /* Further reduce snowflakes on very small screens */
+  .snowfall-container {
+    contain: layout style paint;
   }
 }

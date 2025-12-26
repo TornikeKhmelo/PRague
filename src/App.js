@@ -127,6 +127,10 @@ function App() {
   const [showQuotes, setShowQuotes] = useState(true);
   const [showAnimation, setShowAnimation] = useState(false);
   const [showProposal, setShowProposal] = useState(false);
+  
+  // Reduce snowflakes on mobile for better performance
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+  const snowflakeCount = isMobile ? 20 : 50;
 
   const handleQuotesComplete = () => {
     setShowQuotes(false);
@@ -143,7 +147,7 @@ function App() {
       <div className="aurora-page">
         <div className="aurora-background-react" />
         <div className="snowfall-container">
-          {Array.from({ length: 50 }).map((_, i) => (
+          {Array.from({ length: snowflakeCount }).map((_, i) => (
             <div key={i} className="snowflake" style={{
               left: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 5}s`,
